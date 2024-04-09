@@ -1,0 +1,26 @@
+.ramais{
+
+    background-color: #e3f2fd;
+}
+
+.ramais_head{
+
+    background-color: #90caf9;
+    color: white;
+}
+.ramal_registrado{
+
+    background-color: #b2dfdb;
+    height: 50px;
+}
+
+.ramal_nao_registrado{
+
+    background-color: #f8bbd0 ;
+    height: 50px;
+    /* background: #f8bbd0; */
+}
+.botao_delete{
+    height: 50px;
+    
+}

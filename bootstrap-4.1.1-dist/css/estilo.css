@@ -1,0 +1,217 @@
+/* configurações do topo */
+
+.bg-topo{
+background-color: #68627a;
+
+}
+/* 
+.whiteText{
+color: black;
+
+} */
+
+.btn-orcamento{
+
+    border: 2px solid #fff;
+    background: none;
+    position: relative;
+    color: white;
+    z-index: 1;
+    border-radius: 10px;
+    height: 100%;
+    
+}
+.btn-orcamento:hover{
+color: #68627a;
+background: white;
+border-color: white;
+transition: all .50s ease-in-out;
+-moz-transition: all .50s ease-in-out;
+-webkit-transition: all .50s ease-in-out;
+}
+
+/* sessao serviços */
+.bg-servicos{
+    background: linear-gradient(131.26deg, #312b45 30%, #ff3859 100%);
+}
+
+/* SEÇÃO PARCEIROS */
+.bg-parceiros{
+background-color: #e0e0e0e0 ;
+
+
+}
+
+
+.underline{
+
+    content: '';
+    border-top: 2px solid #ff3859;
+    width:70px;
+    display:block;
+    margin-bottom:8px;
+    margin:0 auto;
+
+}
+.underline-footer{
+
+    content: '';
+    border-top: 2px solid #ff3859;
+    width:70px;
+    display:block;
+    margin-top: 5px;
+
+}
+
+
+.sombra:hover{
+ box-shadow: 0 0 20px rgba(0,0,0,0.1); 
+ /* box-shadow:royalblue;     */
+}   
+
+
+.padding-parceiros{
+    /* esse important é pra garantir que a classe do bootstrap não vai 
+    atrapalhar, mas funcionou mesmo assim  sem ela
+    ele substitui de faato o que esta no bootstrap*/
+    padding: 2px !important; 
+   
+  
+}
+
+/* seção paralax */
+
+.fatos .icon i{
+
+    font-size:50px;
+    color: white;
+}
+.fatos h3{
+   font-size: 35px; 
+   color: white;
+   margin-bottom: 5px;
+   font-weight: 500;
+   letter-spacing: 1px;
+}
+ .fatos h4{
+    /* font-size: 35px;  */
+    font-size: 20px; 
+    color: white;
+   
+    font-weight: 400;
+    letter-spacing: 1px;
+ } 
+
+ .bg-parallax{
+background: url(bg.jpg) fixed;
+position: relative ;
+
+ }
+
+ /* configura;áo da se;áo de cur;os */
+
+ .tabela-preco{
+    padding: 0 0 40px 0;
+    margin: 0 auto;
+    margin-bottom: 5px;
+    text-align: center;
+    background-color: #fff;
+    border: 2px solid #c0bcbc;
+ }
+
+ .tabela-preco .preco-detalhe h2{
+    font-size: 26px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    background-color:#f1f1f1 ;
+    padding: 30px 0;
+
+
+ }
+ .tabela-preco .preco-detalhe span{
+    display: block;
+    font-size: 48px;
+    font-weight: 400;
+    color: #4c465f;
+    margin-bottom: 20px;
+    
+
+
+ }
+ .tabela-preco .preco-detalhe ul{
+    margin-bottom: 35px;
+    padding: 0 !important;
+ }
+
+ .tabela-preco .preco-detalhe li{
+    
+    padding: 10 ;
+    font-size: 15px;
+    border-bottom: 1px dotted #f1f1f1;
+    list-style: none;
+}
+.btn-preco{
+border-bottom: 1px solid #ff3859;
+background-color:#ff3859 ;
+position: relative;
+color: #fff;
+z-index: 1;
+border-radius:10px ;
+
+}
+
+.btn-preco:hover{
+    color: #fff;
+    background-color:#f5768b;
+    border-color: #f5768b;
+    transition: all .50s ease-in-out;
+    -moz-transition: all .50s ease-in-out ;
+    -webkit-transition: all .50s ease-in-out;
+}
+
+
+.bg-rodape1{
+
+    background-color: #312b45;
+    list-style: none;
+}
+
+
+.bg-rodape1 ul{
+
+    -webkit-padding-start: 0;
+
+    /*     ou
+    padding: 00; */
+
+}
+
+.bg-rodape1 li{
+
+    list-style: none;
+    
+    /* list-style-type: square; */
+
+}
+
+.bg-card-rodape{
+background-color: #ff3859;
+
+}
+
+.icon-banner-rodape{
+color:white;
+
+}
+
+
+.bg-rodape2{
+background-color: #4c465f;
+
+}
+.icone-social{
+
+color: #b3aec2;
+}
