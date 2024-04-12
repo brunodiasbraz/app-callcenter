@@ -5,6 +5,19 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Exception;
 
+$host = "localhost";
+$user = "asterisk";
+$pass = "tel@2020";
+$base = "asterisk";
+
+$conn = mysqli_connect ($host,$user,$pass,$base);
+
+if (mysqli_connect_errno()) {
+// echo "Erro na Conexao ao  MySQL: " . mysqli_connect_error();
+}else{
+    //echo "conexão com o banco efetuada com sucesso";
+}
+
 class RamaisController extends Controller
 {
     public function __construct()
@@ -30,6 +43,29 @@ class RamaisController extends Controller
             'name' => $request->name,
         ]);
     }
+    public function show(Request $request)
+    {
+        $host = "localhost";
+        $user = "asterisk";
+        $pass = "tel@2020";
+        $base = "asterisk";
+
+        $conn = mysqli_connect ($host,$user,$pass,$base);
+
+        if (mysqli_connect_errno()) {
+        // echo "Erro na Conexao ao  MySQL: " . mysqli_connect_error();
+        }else{
+            //echo "conexão com o banco efetuada com sucesso";
+        }
+
+        
+
+        // Salvar log
+        //Log::info('Listar as páginas', ['action_user_id' => Auth::id()]);
+
+        // Carregar a VIEW
+        return view('ramais.show', ['menu' => 'ramais']);
+    }
 
     public function create(Request $request){
 
@@ -39,7 +75,6 @@ class RamaisController extends Controller
         $base = "asterisk";
 
         $conn = mysqli_connect ($host,$user,$pass,$base);
-
 
         if (mysqli_connect_errno()) {
         // echo "Erro na Conexao ao  MySQL: " . mysqli_connect_error();

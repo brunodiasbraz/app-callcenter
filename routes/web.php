@@ -83,6 +83,7 @@ Route::group(['middleware' => 'auth'], function () {
     //Ramais
     Route::get('/index-ramais', [RamaisController::class, 'index'])->name('ramais.index');
     Route::post('/upload-ramais', [RamaisController::class, 'upload'])->name('ramais.upload');
+    Route::get('/show-ramais', [RamaisController::class, 'show'])->name('ramais.show');
     Route::post('/create-ramais', [RamaisController::class, 'create'])->name('ramais.create');
     Route::post('/update-ramais', [RamaisController::class, 'update'])->name('ramais.update');
     Route::post('/delete-ramais', [RamaisController::class, 'delete'])->name('ramais.delete');

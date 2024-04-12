@@ -14,7 +14,7 @@
             
             <ul class="nav justify-content-center">
                 <li class="nav-item">
-                    <a class="nav-link disabled" id="listarRamal" href="#">Listar Ramais</a>
+                    <a class="nav-link" id="listarRamal" href="{{ route('ramais.show') }}">Listar Ramais</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link active text-reset" id="criarRamal" href="#">Criar Ramal</a>
