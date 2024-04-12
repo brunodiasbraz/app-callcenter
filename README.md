@@ -266,34 +266,3 @@ Instalar o tema do Bootstrap 5 para Select2
 npm install select2-bootstrap-5-theme
 ```
 
-## Enviar para o GitHub
-Iniciar novo packet com GIT na máquina 
-```
-git init
-```
-
-Definir as configurações do usuário
-```
-git config --local user.name telecomcercred
-```
-```
-git config --local user.email telecom@cercred.com.br
-```
-
-Baixar os arquivos do Git
-```
-git clone --branch <branch_name> <repository_url>
-```
-```
-git clone --branch dev-master https://github.com/telecomcercred/laravel-meu-projeto.git
-```
-
-Verificar a branch
-```
-git branch  
-```
-
-Baixar as atualizações
-```
-git pull
-```
