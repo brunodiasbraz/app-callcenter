@@ -18,14 +18,16 @@ return new class extends Migration
     {
         Schema::create('contact_returns', function (Blueprint $table) {
             $table->id();
+            $table->string('uniqueid');
             $table->string('pessoa_codigo');
             $table->string('data_ultima_tentativa');
-            $table->string('discagem_status');
-            $table->string('discagem_status_descricao');
-            $table->string('discagem_status_detalhe');
-            $table->string('discagem_status_detalhe_descricao');
+            $table->string('discagem_status')->nullable();
+            $table->string('discagem_status_descricao')->nullable();
+            $table->string('discagem_status_detalhe')->nullable();
+            $table->string('discagem_status_detalhe_descricao')->nullable();
             $table->string('ura_digitos');
-            $table->string('duracao');
+            $table->string('duracao')->nullable();
+            $table->string('ura_migrado');
 
 
 

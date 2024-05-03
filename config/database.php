@@ -62,6 +62,33 @@ return [
                 PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
             ]) : [],
         ],
+        
+        //IssabelPBX 
+        'mysql_external' => [
+            'driver' => 'mysql',
+            'host' => '10.100.0.88',
+            'port' => '3306',
+            'database' => 'call_center',
+            'username' => 'root',
+            'password' => 'Tel@2020',
+            'charset' => 'utf8',
+            'prefix' => '',
+            'strict' => true,
+            'engine' => null,
+        ],
+
+        'pgsql_asterisk' => [
+            'driver' => 'pgsql',
+            'host' => '10.100.0.78',
+            'port' => '5432',
+            'database' => 'asterisk',
+            'username' => 'asterisk',
+            'password' => 'tel@2020',
+            'charset' => 'utf8',
+            'prefix' => '',
+            'schema' => 'public',
+            'sslmode' => 'disable', 
+        ],
 
         'pgsql' => [
             'driver' => 'pgsql',

@@ -5,178 +5,167 @@
     <div class="mb-1 space-between-elements">
         <h2 class="ms-2 mt-3 me-3">Ramais</h2>
         <ol class="breadcrumb mb-3 mt-3 p-1 rounded bg-light">
+            <li class="breadcrumb-item"><a class="text-decoration-none"
+                    href="{{ route('dashboard.index') }}">Dashboard</a>
+            </li>
             <li class="breadcrumb-item active">Ramais</li>
         </ol>
     </div>
 
     <div class="card mb-4 border-light shadow">
-        <div class="card-body">
-            
-            <ul class="nav justify-content-center">
-                <li class="nav-item">
-                    <a class="nav-link" id="listarRamal" href="{{ route('ramais.show') }}">Listar Ramais</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active text-reset" id="criarRamal" href="#">Criar Ramal</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-reset" id="editarRamal" href="#">Editar Ramal</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-reset" id="deletarRamal" href="#">Excluir Ramal</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-    <!----------Card para Criar Ramais--------->
-    <div class="card d-block mb-4 border-light shadow" id="cardCriarRamal">
         <div class="card-header space-between-elements">
-            <span class="fw-bold">Criar Ramal</span>
+            <span class="fw-bold">Pesquisar</span>
         </div>
+
         <div class="card-body">
-            <div class="container col-sm-12 col-md-8">
-                <form action="{{ route('ramais.create') }}" method="POST">
-                    @csrf
-                    @method('POST')
-                    <div class="form-group my-4 col-sm-12 col-md-12">
-                        <label for="">Conta Ramal Sip</label>
-                        <input name="ramal_sip" type="text" class="form-control" id="" placeholder="Digite aqui a conta SIP." autofocus required>
-
-                        <label for="">Senha :</label>
-                        <input name="senha_ramal_sip" type="password" class="form-control" id="" placeholder="Digite aqui uma senha." required>
-
-                        <div class="form-group">
-                            <label for="exampleFormControlSelect1">Permissão de chamadas</label>
-                            <select name="contexto_ramal_sip" class="form-control" id="exampleFormControlSelect1">
-                                <option value="phones">Chamadas internas(phones)</option>
-                                <option value="phones-local">Chamadas Locais</option>
-                                <option value="phones-local-celular">Chamadas Locais e Celular</option>
-                                <option value="phones-ddd-fixo">Chamadas DDD Fixo</option>
-                                <option value="phones-ddd-fixo-celular">Chamadas DDD fixo e celular</option>
-                                <option value="phones-ddi">Chamadas DDI</option>
-                            </select>
-                        </div>
-
-
-                        <label for="">Tipo de host Dynamic </label>
-                        <input name="dinamic_static_ramal_sip" readonly="readonly" value="dynamic" type="text" class="form-control" id="" placeholder="">
-                        <small class="form-text text-muted">Digite o ip ou dinamico .</small>
-                        <button type="submit" class="mt-2 btn btn-primary col-sm-12 col-md-12">Criar</button>
+            <form action="{{ route('ramais.index') }}">
+                <div class="row mb-3 align-items-center">
+                    <div class="col-md-4 col-sm-4">
+                        <!-- <label class="form-label" for="email">Ramal</label> -->
+                        <input type="text" name="email" id="email" class="form-control" value=""
+                            placeholder="Ramal do usuário">
                     </div>
 
-                </form>
-            </div>
-            <x-alert />
+                    <div class="col-md-4 col-sm-4">
+                        <!-- <label class="form-label" for="name">Status</label> -->
+                        <input type="text" name="name" id="name" class="form-control" value=""
+                            placeholder="Status do Ramal">
+                    </div>
+
+
+                    <div class="col-md-4 col-sm-4">
+                        <button type="submit" class="btn btn-info btn-sm mx-2"><i
+                                class="fa-solid fa-magnifying-glass"></i>
+                            Pesquisa</button>
+                        <a href="{{ route('ramais.index') }}" class="btn btn-warning btn-sm"><i
+                                class="fa-solid fa-trash"></i> Limpar</a>
+                    </div>
+
+                </div>
+            </form>
         </div>
     </div>
-    <!----------Fim Card para Criar Ramais--------->
 
-    <!----------Card para Editar Ramais--------->
-    <div class="card d-none mb-4 border-light shadow" id="cardEditarRamal">
+    <div class="card mb-4 border-light shadow">
         <div class="card-header space-between-elements">
-            <span class="fw-bold">Editar Ramal</span>
+            <span class="fw-bold">Listar Ramais</span>
+            <span>
+                @can('create-ramais')
+                <a href="{{ route('ramais.create') }}" class="btn btn-success btn-sm"><i
+                        class="fa-regular fa-square-plus"></i> Cadastrar</a>
+                @endcan
+            </span>
         </div>
         <div class="card-body">
-            <div class="container col-sm-12 col-md-8">
-                <form action="{{ route('ramais.update') }}" method="GET">
+
+            <x-alert />
+
+            @if (count($ramais) > 0)
+            <table class="table table-sm table-striped table-hover text-center">
+                <thead>
+                    <tr>
+                        <th>Status</th>
+                        <th>ID</th>
+                        <th>Contexto</th>
+                        <th>Disallow</th>
+                        <th>Allow</th>
+                        <th>Senha</th>
+                        <th>DirectMedia</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($ramais as $ramal)
+                    <tr>
+                        <td class="text-center">
+                            @if ($ramal->status == 'logado')
+                            <span class="badge rounded-pill text-bg-success">Logado</span>
+                            @else
+                            <span class="badge rounded-pill text-bg-danger">Deslogado</span>
+                            @endif
+                        </td>
+                        <td>{{ $ramal->id }}</td>
+                        <td>{{ $ramal->context }}</td>
+                        <td>{{ $ramal->disallow }}</td>
+                        <td>{{ $ramal->allow }}</td>
+                        <td>{{ $ramal->password }}</td>
+                        <td>{{ $ramal->direct_media }}</td>
+                        <td class="d-md-flex justify-content-center">
+                            <a href="#" class="edit-ramal-btn" data-bs-toggle="modal" data-bs-target="#editRamal"
+                                data-ramal-id="{{ $ramal->id }}"><i class="fa fa-edit"></i></a>
+
+                            @can('destroy-ramais')
+                            <form id="formDelete{{ $ramal->id }}" method="POST"
+                                action="{{ route('ramais.destroy', $ramal->id) }}">
+                                @csrf
+                                @method('delete')
+                                <a type="submit" class="text-danger mx-2 btnDelete" data-delete-id="{{ $ramal->id }}"><i
+                                        class="fa fa-trash"></i></a>
+                            </form>
+                            @endcan
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+            @else
+            <div class="alert alert-danger" role="alert">Nenhum ramal encontrado!</div>
+            @endif
+
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="editRamal" tabindex="-1" aria-labelledby="editRamalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Editar Ramal <span id="ramal-id"></span></h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
                 @csrf
                 @method('GET')
-                <div class="form-group col-sm-12 my-4 col-md-12">
-                    <div class="row">
-                        <div class="col-sm-12 col-md-12">
-                            <label for="">Ramais Iniciados com ...</label>
-                            <input name="rama_sip" type="text" class="form-control my-3" id=""  placeholder="Digite aqui..." autofocus >
-                            <button type="submit" class="btn btn-primary col-sm-12 col-md-12">Editar ramal</button>
-                        </div>
+                <form action="{{ route('ramais.edit') }}" method="GET">
+                    <input type="hidden" name="ramal" id="ramal-input" value="">
+                    <div class="mb-3">
+                        <label for="maxContacts" class="form-label">Max Contacts</label>
+                        <input type="text" name="maxContacts" id="maxContacts" class="form-control" placeholder="Ex.: 1"
+                            value="{{ old('maxContacts') }}">
                     </div>
-                </div>
-            </form>
+                    <div class="mb-3">
+                        <label for="secretRamal" class="form-label">Senha</label>
+                        <input type="text" name="secretRamal" id="secretRamal" class="form-control" placeholder="dialer"
+                            value="{{ old('secretRamal') }}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="context" class="form-label">Contexto</label>
+                        <input type="text" name="context" id="context" class="form-control"
+                            placeholder="Insira o contexto" value="{{ old('context') }}">
+                    </div>
             </div>
-            <x-alert />
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                <button type="submit" class="btn btn-primary">Salvar alterações</button>
+            </div>
+            </form>
         </div>
     </div>
-    <!----------Fim Card para Editar Ramais--------->
-
-    <!----------Card para Deletar Ramais--------->
-    <div class="card d-none mb-4 border-light shadow" id="cardDeletarRamal">
-        <div class="card-header space-between-elements">
-            <span class="fw-bold">Deletar Ramal</span>
-        </div>
-        <div class="card-body">
-            <div class="container col-sm-12 col-md-8">
-                <form action="{{ route('ramais.delete') }}" method="POST">
-                @csrf
-                @method('POST')
-                <div class="form-group col-sm-12 my-4 col-md-12">
-                    <div class="row">
-                        <div class="col-sm-12 col-md-12">
-                            <label for="">Ramais Iniciados com ...</label>
-                            <input name="rama_sip" type="text" class="form-control my-3" id=""  placeholder="Digite aqui..." autofocus >
-                            <button type="submit" class="btn btn-primary col-sm-12 col-md-12">Deletar Ramal</button>
-                        </div>
-                    </div>
-                </div>
-            </form>
-            </div>
-            <x-alert />
-        </div>
-    </div>
-    <!----------Fim Card para Deletar Ramais--------->
-
 </div>
 <script>
-        // Seleciona o link e a div
-    const linkCriarRamal = document.getElementById('criarRamal');
-    const linkEditarRamal = document.getElementById('editarRamal');
-    const linkDelRamal = document.getElementById('deletarRamal');
-    const divCardCriarRamal = document.getElementById('cardCriarRamal');
-    const divCardEditarRamal = document.getElementById('cardEditarRamal');
-    const divCardDelRamal = document.getElementById('cardDeletarRamal');
-
-    // Adiciona um evento de clique ao link
-    linkCriarRamal.addEventListener('click', function(event) {
-        // Impede o comportamento padrão do link
-        event.preventDefault();
-        divCardEditarRamal.classList.add('d-none')
-        divCardDelRamal.classList.add('d-none')
-        // Verifica se a div está oculta
-        if (divCardCriarRamal.classList.contains('d-none')) {
-            // Se estiver oculta, remove a classe 'd-none' para mostrar a div
-            divCardCriarRamal.classList.remove('d-none');
-        } else {
-            // Se estiver visível, adiciona a classe 'd-none' para ocultar a div
-            divCardCriarRamal.classList.add('d-none');
-        }
+document.addEventListener('DOMContentLoaded', function() {
+    // Captura o evento de clique nos botões de edição
+    const editButtons = document.querySelectorAll('.edit-ramal-btn');
+    editButtons.forEach(function(button) {
+        button.addEventListener('click', function(event) {
+            event.preventDefault();
+            // Recupera o ID do ramal da linha clicada
+            const ramalId = button.getAttribute('data-ramal-id');
+            // Atualiza o conteúdo do modal com o ID do ramal
+            document.getElementById('ramal-id').textContent = ramalId;
+            document.getElementById('ramal-input').value = ramalId;
+        });
     });
-    
-    linkEditarRamal.addEventListener('click', function(event) {
-        // Impede o comportamento padrão do link
-        event.preventDefault();
-        divCardCriarRamal.classList.add('d-none')
-        divCardDelRamal.classList.add('d-none')
-        // Verifica se a div está oculta
-        if (divCardEditarRamal.classList.contains('d-none')) {
-            // Se estiver oculta, remove a classe 'd-none' para mostrar a div
-            divCardEditarRamal.classList.remove('d-none');
-        } else {
-            // Se estiver visível, adiciona a classe 'd-none' para ocultar a div
-            divCardEditarRamal.classList.add('d-none');
-        }
-    });
-
-    linkDelRamal.addEventListener('click', function(event) {
-        // Impede o comportamento padrão do link
-        event.preventDefault();
-        divCardCriarRamal.classList.add('d-none')
-        divCardEditarRamal.classList.add('d-none')
-        // Verifica se a div está oculta
-        if (divCardDelRamal.classList.contains('d-none')) {
-            // Se estiver oculta, remove a classe 'd-none' para mostrar a div
-            divCardDelRamal.classList.remove('d-none');
-        } else {
-            // Se estiver visível, adiciona a classe 'd-none' para ocultar a div
-            divCardDelRamal.classList.add('d-none');
-        }
-    });
+});
 </script>
 @endsection

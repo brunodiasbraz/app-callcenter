@@ -15,6 +15,12 @@ class Kernel extends ConsoleKernel
         // $schedule->command('inspire')->hourly();
         $schedule->command('logs:clean')->daily(); // Executa a limpeza diariamente
 
+        // Olha se tem registros na tabela input_files com status pendente para serem enviados para discagem no 88
+        $schedule->command('app:dial-input-files')->everyTenSeconds(); 
+
+        //$schedule->command('app:include-call-app')->everyFiveSeconds();
+        //$schedule->command('app:return-call-client')->everyTenSeconds();
+
     }
 
     /**

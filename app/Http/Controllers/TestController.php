@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Contact;
 use App\Models\CustomLog;
 use App\Models\Telephone;
+use App\Jobs\IncludeCallJob;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -136,4 +137,44 @@ class TestController extends Controller
             return response()->json(['message' => 'Erro ao inserir dados'], 500);
         }
     }
+
+
+    public function storeteste(Request $request)
+{
+    $user = auth()->user();
+    $requestData = $request->all();
+
+    try {
+        DB::beginTransaction();
+
+        $contact = Contact::create([
+            'campanha' => $requestData['campanha'],
+            'pessoa_codigo' => $requestData['pessoa_codigo'],
+            'pessoa_nome' => $requestData['pessoa_nome'],
+            'pessoa_cpf' => $requestData['pessoa_cpf'],
+            'data_agenda' => $requestData['data_agenda'],
+            'informacoes_extras' => $requestData['informacoes_extras'],
+        ]);
+
+        foreach ($requestData['telefones'] as $telefone) {
+            $posicao = $contact->telephones()->count();
+            $contact->telephones()->create([
+                'ddd' => $telefone['ddd'],
+                'telefone' => $telefone['telefone'],
+                'posicao' => $posicao,
+            ]);
+        }
+
+        DB::commit();
+
+        dispatch(new IncludeCallJob($contact));
+
+        return response()->json(['msg' => 'Dados inseridos com sucesso', 'cod' => 201], 201);
+    } catch (\Exception $e) {
+        DB::rollBack();
+        return response()->json(['message' => 'Erro ao inserir dados'], 500);
+    }
+}
+
+
 }

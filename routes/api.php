@@ -9,6 +9,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\ContactReturnController;
+use App\Http\Controllers\DialerController;
+use App\Http\Controllers\EntradasController;
+use App\Http\Controllers\InputFileController;
+use App\Http\Controllers\OutputFileController;
 use App\Models\ContactReturn;
 
 /*
@@ -65,10 +69,19 @@ Route::prefix('hml')->group(
 
         Route::apiResource('return-call', TestController::class)
             ->only(['index', 'show'])->middleware('auth:sanctum');
-    }
-);
 
+        Route::post('include-job', [TestController::class, 'storeteste']);
+        Route::get('input-file/{id_campaign}', [InputFileController::class, 'importFileFromFTP']);
+        Route::get('output-file', [OutputFileController::class, 'generateAndUploadTxtFile']);
+    }
+
+
+);
 
 Route::middleware('validate.access')->get('/rota-protegida', function () {
     return 'Esta rota é protegida.';
 });
+
+Route::get('/return_store', [ContactReturnController::class, 'store']); // 1º 
+Route::get('/return_call', [ContactReturnController::class, 'return']); // 2º 
+Route::post('/include_contact', [DialerController::class, 'includeContact_hml']);

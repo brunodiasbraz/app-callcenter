@@ -10,38 +10,32 @@
     </div>
 
     <div class="card mb-4 border-light shadow">
-        <div class="card-body">
-            <ul class="nav justify-content-center">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Mailing</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Blacklist</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-    <div class="card mb-4 border-light shadow">
         <div class="card-header space-between-elements">
             <span class="fw-bold">Mailing</span>
         </div>
         <div class="card-body">
-            <div class="container col-sm-12 my-4 col-md-8">
-                <p>1 • Para subir um arquivo de mailing contendo vários números, basta fazer um upload do arquivo em formato CSV contendo o ID da campanha e o telefone no formato DDD+Número</p>
-                <p><strong>Obs.: </strong>Este modelo será ajustado posteriormente.</p>
+            <div class="container">
+                <p>1 • Para subir um arquivo de mailing contendo vários números, basta fazer um upload do arquivo em formato CSV.</p>
+                <p>2 • Após a mensagem de confirmação de carga será mostrado um seletor para informar em qual campanha deseja ativar o mailing, basta clicar na desejada e clicar no botão "Ativar mailing".</p>
+                
                 <form id="uploadForm" enctype="multipart/form-data">
                     @csrf
-                    <div class="mb-3 col-sm-12 my-4 col-md-12">
-                        <input class="form-control form-control-sm" type="file" name="file" accept=".csv">
+                    
+                    <div class="input-group mb-3">
+                        <input type="file" class="form-control" type="file" name="file" accept=".csv" aria-label="Upload">
+                        <button class="btn btn-outline-secondary" type="submit">Enviar</button>
                     </div>
-                    <button class="btn btn-outline-primary btn-sm px-4" type="submit">Enviar</button>
                 </form>
+                <p class="text-secondary"><small><strong>Obs.: </strong>Modelo previamente alinhado com setores.</small></p>
+                <div class="input-group d-none" id="selActiveCamp">
+                     <select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon">
+                        <option selected>Escolha uma campanha</option>
+                        <option value="1">1 - Telecom</option>
+                        <option value="2">2 - Enel</option>
+                        <option value="3">3 - Cemig</option>
+                    </select>
+                <button class="btn btn-outline-secondary col-3" id="enviarBtn">Ativar mailing</button>
+                </div>
                 <x-alert />
             </div>
         </div>
@@ -74,12 +68,53 @@
                         html: 'Seu mailing foi enviado com sucesso!',
                         icon: 'success'
                     });
+
+                    document.getElementById("selActiveCamp").classList.remove("d-none");
+                
                 })
                 .catch(error => {
                     console.error('Erro:', error);
                     alert('Erro ao processar a requisição.');
                 });
         }
+    });
+    document.getElementById("enviarBtn").addEventListener("click", function() {
+        // Obtém o valor selecionado no <select>
+        var selectedValue = document.getElementById("inputGroupSelect04").value;
+    
+    // Verifica se um valor válido foi selecionado
+    if (selectedValue !== "") {
+        // Faz a requisição GET com o valor selecionado
+        fetch("/api/hml/input-file/" + selectedValue)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Erro ao processar a requisição.');
+                }
+                return response.text();
+            })
+            .then(data => {
+                Swal.fire({
+                    title: 'Pronto!',
+                    html: 'Sua requisição foi concluída com sucesso!',
+                    icon: 'success'
+                });
+            })
+            .catch(error => {
+                console.error('Erro:', error);
+                Swal.fire({
+                    title: 'Erro!',
+                    text: 'Ocorreu um erro ao processar a requisição.',
+                    icon: 'error'
+                });
+            });
+    } else {
+        // Caso nenhum valor tenha sido selecionado, exibe uma mensagem de erro
+        Swal.fire({
+            title: 'Erro!',
+            text: 'Por favor, escolha uma campanha antes de enviar.',
+            icon: 'error'
+        });
+    }
     });
 </script>
 @endsection

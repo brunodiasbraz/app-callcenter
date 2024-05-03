@@ -13,16 +13,16 @@ return new class extends Migration
     {
         Schema::create('ivr_users', function (Blueprint $table) {
             $table->id();
-            $table->string('user_nome');
-            $table->string('user_key');
-            $table->string('token');
-            $table->string('user_validade');
-            $table->string('token_validade');
-            $table->string('acd');
-            $table->string('retorno_url');
-            $table->string('retorno_user');
-            $table->string('retorno_key');
-            $table->string('retorno_token');
+            $table->string('user_nome')->nullable();
+            $table->string('user_key')->nullable();
+            $table->string('token')->nullable();
+            $table->string('user_validade')->nullable();
+            $table->string('token_validade')->nullable();
+            $table->string('acd')->nullable();
+            $table->string('retorno_url')->nullable();
+            $table->string('retorno_user')->nullable();
+            $table->string('retorno_key')->nullable();
+            $table->string('retorno_token')->nullable();
             $table->timestamps();
         });
     }

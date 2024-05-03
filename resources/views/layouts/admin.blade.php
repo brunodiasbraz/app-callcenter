@@ -84,10 +84,21 @@
                             </a>
                         @endcan
 
-                        @can('index-ramais')
-                            <a  @class(['nav-link', 'active' => isset($menu) && $menu == 'ramais']) class="nav-link" href="{{ route('ramais.index') }}">
-                                <div class="sb-nav-link-icon"><i class="fas fa-mobile-alt"></i></div>Ramais
+                        @can('index-dialing')
+                            <a  @class(['nav-link', 'active' => isset($menu) && $menu == 'dialing']) class="nav-link" href="{{ route('dialing.index') }}">
+                            <div class="sb-nav-link-icon"><i class="fa-solid fa-phone-volume"></i></div>Canais Discando
                             </a>
+                        @endcan
+
+                        @can('index-ramais')
+                            <a  @class(['nav-link', 'active' => isset($menu) && $menu == 'ramais']) class="nav-link" href="#" id="item1">
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-tty"></i></div>PBX
+                            </a>
+                            <ul class="list-group list-group-flush submenu" id="submenu1" style="display: none;"> <!-- Inicia colapsado -->
+                                <li class="list-group-item"><a class="ms-4 text-secondary text-decoration-none" href="{{ route('ramais.index') }}">Ramais</a></li>
+                                <li class="list-group-item"><a class="ms-4 text-secondary text-decoration-none" href="{{ route('trunks.index') }}">Troncos</a></li>
+                                <li class="list-group-item"><a class="ms-4 text-secondary text-decoration-none" href="{{ route('ramais.index') }}">URA</a></li>
+                            </ul>
                         @endcan
 
                         @can('index-permission')
@@ -96,7 +107,6 @@
                                 Páginas
                             </a>
                         @endcan
-
 
                         <a class="nav-link" href="{{ route('login.destroy') }}">
                             <div class="sb-nav-link-icon"><i class="fa-solid fa-arrow-right-to-bracket"></i></div>
@@ -142,6 +152,18 @@
 
         </div>
     </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+    $(document).ready(function() {
+        $('.nav-link').click(function() {
+            // Encontre o submenu correspondente usando o ID
+            var submenuId = $(this).attr('id').replace('item', 'submenu');
+            var submenu = $('#' + submenuId);
+            // Alternar a exibição do submenu
+            submenu.slideToggle();
+        });
+    });
+    </script>
 
 </body>
 

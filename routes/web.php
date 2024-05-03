@@ -12,6 +12,8 @@ use App\Http\Controllers\RolePermissionController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\EntradasController;
 use App\Http\Controllers\RamaisController;
+use App\Http\Controllers\DialingController;
+use App\Http\Controllers\TrunksController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -80,13 +82,19 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/index-entradas', [EntradasController::class, 'index'])->name('entradas.index');
     Route::post('/upload-entradas', [EntradasController::class, 'upload'])->name('entradas.upload');
 
+    //Canais Discando
+    Route::get('/index-dialing', [DialingController::class, 'index'])->name('dialing.index');
+    Route::get('/dialing/refresh', [DialingController::class, 'refresh'])->name('dialing.refresh');
+
+    //Troncos
+    Route::get('/index-trunks', [TrunksController::class, 'index'])->name('trunks.index');
+
     //Ramais
     Route::get('/index-ramais', [RamaisController::class, 'index'])->name('ramais.index');
-    Route::post('/upload-ramais', [RamaisController::class, 'upload'])->name('ramais.upload');
-    Route::get('/show-ramais', [RamaisController::class, 'show'])->name('ramais.show');
-    Route::post('/create-ramais', [RamaisController::class, 'create'])->name('ramais.create');
-    Route::post('/update-ramais', [RamaisController::class, 'update'])->name('ramais.update');
-    Route::post('/delete-ramais', [RamaisController::class, 'delete'])->name('ramais.delete');
+    Route::post('/store-ramais', [RamaisController::class, 'store'])->name('ramais.store');
+    Route::get('/create-ramais', [RamaisController::class, 'create'])->name('ramais.create');
+    Route::get('/edit-ramais', [RamaisController::class, 'edit'])->name('ramais.edit');
+    Route::delete('/destroy-ramais/{id}', [RamaisController::class, 'destroy'])->name('ramais.destroy');
 
     // Aulas
     Route::get('/index-classe/{course}', [ClasseController::class, 'index'])->name('classe.index');
